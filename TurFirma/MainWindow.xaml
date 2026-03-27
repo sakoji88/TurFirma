@@ -1,0 +1,160 @@
+<Window x:Class="TurFirma.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TurFirma.ViewModels"
+        xmlns:models="clr-namespace:TurFirma.Models"
+        mc:Ignorable="d"
+        Title="Турфирма" Height="840" Width="1200" MinHeight="700" MinWidth="1000">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="White" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="Информационная система турфирмы" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="Поиск, бронирование, оплата и менеджерское подтверждение" Foreground="#666"/>
+            </StackPanel>
+        </Border>
+
+        <TabControl Grid.Row="1" Background="Transparent">
+            <TabItem Header="Авторизация / Регистрация">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="14">
+                        <TextBlock Text="Регистрация клиента" FontWeight="Bold" FontSize="18"/>
+                        <UniformGrid Columns="2">
+                            <TextBox Text="{Binding Auth.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Auth.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Auth.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Auth.Password, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Auth.PassportSeries, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Auth.PassportNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DatePicker SelectedDate="{Binding Auth.PassportIssueDate}"/>
+                        </UniformGrid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Зарегистрироваться" Command="{Binding Auth.RegisterCommand}"/>
+                            <Button Content="Войти" Command="{Binding Auth.LoginCommand}"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Auth.Status}" Foreground="#333" Margin="6" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Каталог туров">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <WrapPanel>
+                        <TextBox Width="180" Text="{Binding Catalog.Destination, UpdateSourceTrigger=PropertyChanged}" ToolTip="Направление"/>
+                        <DatePicker SelectedDate="{Binding Catalog.FromDate}"/>
+                        <DatePicker SelectedDate="{Binding Catalog.ToDate}"/>
+                        <TextBox Width="120" Text="{Binding Catalog.MaxPrice, UpdateSourceTrigger=PropertyChanged}" ToolTip="Цена до"/>
+                        <ComboBox Width="160" SelectedValue="{Binding Catalog.TourType, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content=""/>
+                            <ComboBoxItem Content="Пляжный"/>
+                            <ComboBoxItem Content="Экскурсионный"/>
+                            <ComboBoxItem Content="Активный"/>
+                        </ComboBox>
+                        <Button Content="Поиск" Command="{Binding Catalog.LoadToursCommand}"/>
+                    </WrapPanel>
+
+                    <DataGrid Grid.Row="1" Margin="0,10" ItemsSource="{Binding Catalog.Tours}" SelectedItem="{Binding Catalog.SelectedTour}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Направление" Binding="{Binding Destination}" Width="*"/>
+                            <DataGridTextColumn Header="Тип" Binding="{Binding TourType}"/>
+                            <DataGridTextColumn Header="Дата начала" Binding="{Binding StartDate, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Дата конца" Binding="{Binding EndDate, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding BasePrice}"/>
+                            <DataGridTextColumn Header="Макс. группа" Binding="{Binding GroupSizeMax}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBox Width="100" Text="{Binding Catalog.Seats, UpdateSourceTrigger=PropertyChanged}" ToolTip="Количество мест"/>
+                        <CheckBox Margin="10,0" Content="Страховка (5-10%)" IsChecked="{Binding Catalog.InsuranceSelected}" VerticalAlignment="Center"/>
+                        <CheckBox Margin="10,0" Content="Трансфер (фикс.)" IsChecked="{Binding Catalog.TransferSelected}" VerticalAlignment="Center"/>
+                        <Button Content="Добавить в корзину" Command="{Binding Catalog.BookCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Корзина и оплата">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Обновить" Command="{Binding Cart.RefreshCommand}"/>
+                        <ComboBox Width="180" SelectedItem="{Binding Cart.SelectedMethod}">
+                            <x:Static Member="models:PaymentMethod.Card"/>
+                            <x:Static Member="models:PaymentMethod.EWallet"/>
+                        </ComboBox>
+                        <Button Content="Оплатить" Command="{Binding Cart.PayCommand}"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Margin="0,10" ItemsSource="{Binding Cart.NewBookings}" SelectedItem="{Binding Cart.SelectedBooking}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Бронь" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Тур" Binding="{Binding Tour.Destination}" Width="*"/>
+                            <DataGridTextColumn Header="Мест" Binding="{Binding Seats}"/>
+                            <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice}"/>
+                            <DataGridTextColumn Header="Резерв до" Binding="{Binding ReservedUntilUtc, StringFormat=dd.MM.yyyy HH:mm}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock Grid.Row="2" Text="{Binding Cart.Status}" FontWeight="SemiBold"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Личный кабинет">
+                <DataGrid Margin="12" ItemsSource="{Binding Profile.AllBookings}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Тур" Binding="{Binding Tour.Destination}" Width="*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                        <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice}"/>
+                        <DataGridTextColumn Header="Создана" Binding="{Binding CreatedAtUtc, StringFormat=dd.MM.yyyy HH:mm}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <TabItem Header="Админ-панель менеджера">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Загрузить" Command="{Binding Admin.LoadCommand}"/>
+                        <ComboBox Width="220" ItemsSource="{Binding Admin.Guides}" SelectedItem="{Binding Admin.SelectedGuide}" DisplayMemberPath="FullName"/>
+                        <ComboBox Width="220" ItemsSource="{Binding Admin.Transports}" SelectedItem="{Binding Admin.SelectedTransport}" DisplayMemberPath="Name"/>
+                        <Button Content="Подтвердить и назначить" Command="{Binding Admin.ConfirmCommand}"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Margin="0,10" ItemsSource="{Binding Admin.PendingBookings}" SelectedItem="{Binding Admin.SelectedBooking}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding User.FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Тур" Binding="{Binding Tour.Destination}" Width="*"/>
+                            <DataGridTextColumn Header="Мест" Binding="{Binding Seats}"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock Grid.Row="2" Text="{Binding Admin.Status}" FontWeight="SemiBold"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
