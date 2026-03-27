@@ -11,15 +11,15 @@ public class AuthViewModel : ObservableObject
     public RelayCommand RegisterCommand { get; }
     public RelayCommand LoginCommand { get; }
 
-    public string FullName { get; set; } = "Тестовый Клиент";
-    public string Email { get; set; } = "client@tour.local";
-    public string Phone { get; set; } = "+79990000000";
-    public string PassportSeries { get; set; } = "4510";
-    public string PassportNumber { get; set; } = "123456";
-    public DateTime PassportIssueDate { get; set; } = new DateTime(2018, 5, 5);
-    public string Password { get; set; } = "12345";
+    public string FullName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string PassportSeries { get; set; } = string.Empty;
+    public string PassportNumber { get; set; } = string.Empty;
+    public DateTime PassportIssueDate { get; set; } = DateTime.Today;
+    public string Password { get; set; } = string.Empty;
 
-    private string _status = "Введите данные для входа или регистрации";
+    private string _status = string.Empty;
     public string Status { get => _status; set => SetProperty(ref _status, value); }
 
     public AuthViewModel(AuthService authService)

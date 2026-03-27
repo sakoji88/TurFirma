@@ -37,7 +37,7 @@
         </Border>
 
         <!-- Content -->
-        <Grid Grid.Column="1" Margin="18">
+        <Grid Grid.Column="1" Margin="18" ClipToBounds="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -65,9 +65,11 @@
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CurrentSection}" Value="Auth">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -107,18 +109,20 @@
                 </Border>
 
                 <!-- CATALOG -->
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Border>
-                        <Border.Style>
-                            <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CurrentSection}" Value="Catalog">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentSection}" Value="Catalog">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -171,17 +175,19 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </Grid>
-                    </Border>
-                </ScrollViewer>
+                    </ScrollViewer>
+                </Border>
 
                 <!-- CART -->
                 <Border>
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CurrentSection}" Value="Cart">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -228,9 +234,11 @@
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CurrentSection}" Value="Profile">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -288,9 +296,11 @@
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsHitTestVisible" Value="False"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CurrentSection}" Value="Admin">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="IsHitTestVisible" Value="True"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
