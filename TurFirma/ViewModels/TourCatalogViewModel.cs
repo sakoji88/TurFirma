@@ -38,7 +38,7 @@ public class TourCatalogViewModel : ObservableObject
         _authService = authService;
 
         LoadToursCommand = new RelayCommand(async _ => await LoadToursAsync());
-        BookCommand = new RelayCommand(async _ => await CreateBookingAsync());
+        BookCommand = new RelayCommand(async parameter => await CreateBookingAsync(parameter));
 
         _ = LoadServicesAsync();
     }
@@ -59,12 +59,15 @@ public class TourCatalogViewModel : ObservableObject
         Status = $"Найдено туров: {Tours.Count}";
     }
 
-    private async Task CreateBookingAsync()
+    private async Task CreateBookingAsync(object? parameter)
     {
         try
         {
             if (_authService.CurrentUser is null)
                 throw new InvalidOperationException("Сначала войдите в систему.");
+
+            if (parameter is Tour fromCard)
+                SelectedTour = fromCard;
 
             if (SelectedTour is null)
                 throw new InvalidOperationException("Выберите тур.");

@@ -4,30 +4,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="PrimaryColor">#FF2D7FF9</Color>
-            <Color x:Key="SurfaceColor">#FFF5F7FB</Color>
-            <Color x:Key="CardColor">#FFFFFFFF</Color>
-            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
-            <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
-            <Style TargetType="Window">
-                <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-            </Style>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="6"/>
-                <Setter Property="Padding" Value="14,8"/>
-                <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="Margin" Value="6"/>
-                <Setter Property="Padding" Value="10,6"/>
-            </Style>
-            <Style TargetType="ComboBox">
-                <Setter Property="Margin" Value="6"/>
-                <Setter Property="Padding" Value="10,6"/>
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

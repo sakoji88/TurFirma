@@ -17,12 +17,20 @@ public class MainViewModel : ObservableObject
     public CartViewModel Cart { get; }
     public ProfileViewModel Profile { get; }
     public AdminViewModel Admin { get; }
+    public RelayCommand NavigateCommand { get; }
 
     private bool _isAuthenticated;
     public bool IsAuthenticated
     {
         get => _isAuthenticated;
         set => SetProperty(ref _isAuthenticated, value);
+    }
+
+    private string _currentSection = "Auth";
+    public string CurrentSection
+    {
+        get => _currentSection;
+        set => SetProperty(ref _currentSection, value);
     }
 
     public MainViewModel()
@@ -38,10 +46,16 @@ public class MainViewModel : ObservableObject
         Cart = new CartViewModel(_bookingService, _authService);
         Profile = new ProfileViewModel(_bookingService, _authService);
         Admin = new AdminViewModel(_managerService, _authService, _db);
+        NavigateCommand = new RelayCommand(section =>
+        {
+            if (section is string page && !string.IsNullOrWhiteSpace(page))
+                CurrentSection = page;
+        });
 
         Auth.LoggedIn += (_, _) =>
         {
             IsAuthenticated = true;
+            CurrentSection = "Catalog";
             Catalog.LoadToursCommand.Execute(null);
             Profile.LoadBookingsCommand.Execute(null);
             Admin.LoadCommand.Execute(null);
