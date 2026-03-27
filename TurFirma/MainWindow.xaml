@@ -61,7 +61,7 @@
 
             <Grid Grid.Row="1">
                 <!-- AUTH -->
-                <Border Style="{StaticResource CardStyle}">
+                <Border>
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -108,7 +108,7 @@
 
                 <!-- CATALOG -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Border Style="{StaticResource CardStyle}">
+                    <Border>
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -175,7 +175,7 @@
                 </ScrollViewer>
 
                 <!-- CART -->
-                <Border Style="{StaticResource CardStyle}">
+                <Border>
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -224,7 +224,7 @@
                 </Border>
 
                 <!-- PROFILE -->
-                <Border Style="{StaticResource CardStyle}">
+                <Border>
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -284,7 +284,7 @@
                 </Border>
 
                 <!-- ADMIN -->
-                <Border Style="{StaticResource CardStyle}">
+                <Border>
                     <Border.Style>
                         <Style TargetType="Border" BasedOn="{StaticResource CardStyle}">
                             <Setter Property="Visibility" Value="Collapsed"/>
