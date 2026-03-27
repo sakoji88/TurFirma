@@ -3,14 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TurFirma.ViewModels"
         xmlns:models="clr-namespace:TurFirma.Models"
         mc:Ignorable="d"
         Title="TurFirma — Travel Management" Height="900" Width="1320" MinHeight="760" MinWidth="1100">
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>

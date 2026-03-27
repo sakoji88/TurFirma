@@ -29,7 +29,7 @@ public class CartViewModel : ObservableObject
         PayCommand = new RelayCommand(async _ => await PayAsync());
     }
 
-    private async Task RefreshAsync()
+    public async Task RefreshAsync()
     {
         NewBookings.Clear();
         if (_authService.CurrentUser is null)

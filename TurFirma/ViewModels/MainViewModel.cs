@@ -52,26 +52,32 @@ public class MainViewModel : ObservableObject
                 CurrentSection = page;
         });
 
-        Auth.LoggedIn += (_, _) =>
-        {
-            IsAuthenticated = true;
-            CurrentSection = "Catalog";
-            Catalog.LoadToursCommand.Execute(null);
-            Profile.LoadBookingsCommand.Execute(null);
-            Admin.LoadCommand.Execute(null);
-        };
+        Auth.LoggedIn += async (_, _) => await HandleLoggedInAsync();
+        Catalog.BookingCreated += async (_, _) => await HandleBookingCreatedAsync();
+        Cart.Paid += async (_, _) => await HandlePaidAsync();
+    }
 
-        Catalog.BookingCreated += (_, _) =>
-        {
-            Cart.RefreshCommand.Execute(null);
-            Profile.LoadBookingsCommand.Execute(null);
-            Admin.LoadCommand.Execute(null);
-        };
+    private async Task HandleLoggedInAsync()
+    {
+        IsAuthenticated = true;
+        CurrentSection = "Catalog";
+        await Catalog.LoadToursAsync();
+        await Cart.RefreshAsync();
+        await Profile.LoadBookingsAsync();
+        await Admin.LoadAsync();
+    }
 
-        Cart.Paid += (_, _) =>
-        {
-            Profile.LoadBookingsCommand.Execute(null);
-            Admin.LoadCommand.Execute(null);
-        };
+    private async Task HandleBookingCreatedAsync()
+    {
+        await Cart.RefreshAsync();
+        await Profile.LoadBookingsAsync();
+        await Admin.LoadAsync();
+    }
+
+    private async Task HandlePaidAsync()
+    {
+        await Cart.RefreshAsync();
+        await Profile.LoadBookingsAsync();
+        await Admin.LoadAsync();
     }
 }

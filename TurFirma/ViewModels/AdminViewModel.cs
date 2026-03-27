@@ -36,7 +36,7 @@ public class AdminViewModel : ObservableObject
         ConfirmCommand = new RelayCommand(async _ => await ConfirmAsync());
     }
 
-    private async Task LoadAsync()
+    public async Task LoadAsync()
     {
         PendingBookings.Clear();
         Guides.Clear();

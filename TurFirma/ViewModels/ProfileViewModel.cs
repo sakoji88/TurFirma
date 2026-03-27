@@ -17,10 +17,10 @@ public class ProfileViewModel : ObservableObject
     {
         _bookingService = bookingService;
         _authService = authService;
-        LoadBookingsCommand = new RelayCommand(async _ => await LoadAsync());
+        LoadBookingsCommand = new RelayCommand(async _ => await LoadBookingsAsync());
     }
 
-    private async Task LoadAsync()
+    public async Task LoadBookingsAsync()
     {
         AllBookings.Clear();
         if (_authService.CurrentUser is null)

@@ -10,6 +10,7 @@ public class AuthViewModel : ObservableObject
 
     public RelayCommand RegisterCommand { get; }
     public RelayCommand LoginCommand { get; }
+    public bool IsAuthenticated { get; private set; }
 
     public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
@@ -29,7 +30,7 @@ public class AuthViewModel : ObservableObject
         LoginCommand = new RelayCommand(async _ => await LoginAsync());
     }
 
-    private async Task RegisterAsync()
+    public async Task RegisterAsync()
     {
         try
         {
@@ -42,16 +43,18 @@ public class AuthViewModel : ObservableObject
         }
     }
 
-    private async Task LoginAsync()
+    public async Task LoginAsync()
     {
         try
         {
             await _authService.LoginAsync(Email, Password);
             Status = "Вход выполнен";
+            IsAuthenticated = true;
             LoggedIn?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
+            IsAuthenticated = false;
             Status = ex.Message;
         }
     }

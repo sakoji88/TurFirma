@@ -50,7 +50,7 @@ public class TourCatalogViewModel : ObservableObject
             Services.Add(service);
     }
 
-    private async Task LoadToursAsync()
+    public async Task LoadToursAsync()
     {
         Tours.Clear();
         foreach (var tour in await _tourService.SearchToursAsync(Destination, FromDate, ToDate, MaxPrice, TourType))
