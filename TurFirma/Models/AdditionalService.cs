@@ -10,5 +10,5 @@ public class AdditionalService
     public bool IsInsurance { get; set; }
     public bool IsTransfer { get; set; }
 
-    public ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
+    public ICollection<BookingAdditionalService> BookingServices { get; set; } = new List<BookingAdditionalService>();
 }

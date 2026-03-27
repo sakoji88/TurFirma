@@ -57,7 +57,7 @@ public class BookingService
         var services = await _db.AdditionalServices.Where(s => additionalServiceIds.Contains(s.Id)).ToListAsync();
         foreach (var service in services)
         {
-            _db.BookingServices.Add(new BookingService
+            _db.BookingServices.Add(new BookingAdditionalService
             {
                 BookingId = booking.Id,
                 AdditionalServiceId = service.Id,

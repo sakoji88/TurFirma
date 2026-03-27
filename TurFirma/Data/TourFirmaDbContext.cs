@@ -13,7 +13,7 @@ public class TourFirmaDbContext : DbContext
     public DbSet<Guide> Guides => Set<Guide>();
     public DbSet<Transport> Transports => Set<Transport>();
     public DbSet<AdditionalService> AdditionalServices => Set<AdditionalService>();
-    public DbSet<BookingService> BookingServices => Set<BookingService>();
+    public DbSet<BookingAdditionalService> BookingServices => Set<BookingAdditionalService>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -66,15 +66,15 @@ public class TourFirmaDbContext : DbContext
 
         modelBuilder.Entity<Manager>().HasData(new Manager { Id = 1, UserId = 2 });
 
-        modelBuilder.Entity<BookingService>()
+        modelBuilder.Entity<BookingAdditionalService>()
             .HasKey(x => new { x.BookingId, x.AdditionalServiceId });
 
-        modelBuilder.Entity<BookingService>()
+        modelBuilder.Entity<BookingAdditionalService>()
             .HasOne(x => x.Booking)
             .WithMany(x => x.BookingServices)
             .HasForeignKey(x => x.BookingId);
 
-        modelBuilder.Entity<BookingService>()
+        modelBuilder.Entity<BookingAdditionalService>()
             .HasOne(x => x.AdditionalService)
             .WithMany(x => x.BookingServices)
             .HasForeignKey(x => x.AdditionalServiceId);

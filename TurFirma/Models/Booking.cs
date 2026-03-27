@@ -20,5 +20,5 @@ public class Booking
     public decimal TotalPrice { get; set; }
 
     public ICollection<Payment> Payments { get; set; } = new List<Payment>();
-    public ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
+    public ICollection<BookingAdditionalService> BookingServices { get; set; } = new List<BookingAdditionalService>();
 }
