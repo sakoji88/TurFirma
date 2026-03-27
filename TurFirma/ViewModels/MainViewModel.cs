@@ -9,7 +9,7 @@ public class MainViewModel : ObservableObject
     private readonly TourFirmaDbContext _db = new();
     private readonly AuthService _authService;
     private readonly TourService _tourService;
-    private readonly BookingService _bookingService;
+    private readonly BookingAppService _bookingService;
     private readonly ManagerService _managerService;
 
     public AuthViewModel Auth { get; }
@@ -30,7 +30,7 @@ public class MainViewModel : ObservableObject
         _db.Database.EnsureCreated();
         _authService = new AuthService(_db);
         _tourService = new TourService(_db);
-        _bookingService = new BookingService(_db);
+        _bookingService = new BookingAppService(_db);
         _managerService = new ManagerService(_db);
 
         Auth = new AuthViewModel(_authService);

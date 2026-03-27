@@ -8,7 +8,7 @@
 - `Services/` — бизнес-логика:
   - `AuthService` — регистрация/авторизация.
   - `TourService` — поиск туров и расчет доступных мест.
-  - `BookingService` — корзина, расчет итоговой стоимости, создание брони, оплата.
+  - `BookingAppService` — корзина, расчет итоговой стоимости, создание брони, оплата.
   - `ManagerService` — подтверждение бронирований, назначение гида/транспорта.
 - `ViewModels/` — MVVM слой для экранов:
   - `AuthViewModel`, `TourCatalogViewModel`, `CartViewModel`, `ProfileViewModel`, `AdminViewModel`, `MainViewModel`.

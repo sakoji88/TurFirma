@@ -7,7 +7,7 @@ namespace TurFirma.ViewModels;
 
 public class CartViewModel : ObservableObject
 {
-    private readonly BookingService _bookingService;
+    private readonly BookingAppService _bookingService;
     private readonly AuthService _authService;
     public event EventHandler? Paid;
 
@@ -21,7 +21,7 @@ public class CartViewModel : ObservableObject
     private string _status = "Загрузите корзину";
     public string Status { get => _status; set => SetProperty(ref _status, value); }
 
-    public CartViewModel(BookingService bookingService, AuthService authService)
+    public CartViewModel(BookingAppService bookingService, AuthService authService)
     {
         _bookingService = bookingService;
         _authService = authService;

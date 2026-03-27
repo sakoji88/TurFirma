@@ -8,7 +8,7 @@ namespace TurFirma.ViewModels;
 public class TourCatalogViewModel : ObservableObject
 {
     private readonly TourService _tourService;
-    private readonly BookingService _bookingService;
+    private readonly BookingAppService _bookingService;
     private readonly AuthService _authService;
 
     public ObservableCollection<Tour> Tours { get; } = new();
@@ -31,7 +31,7 @@ public class TourCatalogViewModel : ObservableObject
     private string _status = "Выберите тур";
     public string Status { get => _status; set => SetProperty(ref _status, value); }
 
-    public TourCatalogViewModel(TourService tourService, BookingService bookingService, AuthService authService)
+    public TourCatalogViewModel(TourService tourService, BookingAppService bookingService, AuthService authService)
     {
         _tourService = tourService;
         _bookingService = bookingService;

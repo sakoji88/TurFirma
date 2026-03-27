@@ -7,13 +7,13 @@ namespace TurFirma.ViewModels;
 
 public class ProfileViewModel : ObservableObject
 {
-    private readonly BookingService _bookingService;
+    private readonly BookingAppService _bookingService;
     private readonly AuthService _authService;
 
     public ObservableCollection<Booking> AllBookings { get; } = new();
     public RelayCommand LoadBookingsCommand { get; }
 
-    public ProfileViewModel(BookingService bookingService, AuthService authService)
+    public ProfileViewModel(BookingAppService bookingService, AuthService authService)
     {
         _bookingService = bookingService;
         _authService = authService;
